@@ -17,22 +17,20 @@ export class OpenaiService implements OnModuleInit {
 
   async isRFQ(emailContent: string): Promise<boolean> {
     const response = await this.openai.chat.completions.create({
-        messages: [{ role: "assistant", content: `Is this email an RFQ? ${emailContent}` }],
+        messages: [{ role: "system", content: `Is this email an RFQ? Respond with Yes or No ${emailContent}` }],
         model: "gpt-4o",
       max_tokens: 10,
     });
-    console.log(response.choices);
-    return response.choices[0].message.content.includes('RFQ');
+    return response.choices[0].message.content.includes('Yes');
   }
 
   async extractRFQDetails(emailContent: string): Promise<any> {
-    const response = await this.openai.completions.create({
-      model: 'text-davinci-004',
-      prompt: `Extract RFQ details from this email: ${emailContent}`,
+    const response = await this.openai.chat.completions.create({
+      model: "gpt-4o",
+      messages: [{ role: "assistant", content: `Extract RFQ details and return them in JSON format (do not add anything else,start with the curly braces from the get go) from this email: ${emailContent}` }],
       max_tokens: 500,
-    });
-    console.log(response.choices[0].text);
-    return response.choices[0].text;
+    })
+    return response.choices[0].message.content;
   }
 
   async askNormal(question: string) {

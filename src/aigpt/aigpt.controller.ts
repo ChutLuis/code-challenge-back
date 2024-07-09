@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AigptService } from './aigpt.service';
 import { CreateAigptDto } from './dto/create-aigpt.dto';
 import { UpdateAigptDto } from './dto/update-aigpt.dto';
+import { MailValidator } from './dto/validate-email.dto';
 
 @Controller('aigpt')
 export class AigptController {
@@ -10,6 +11,11 @@ export class AigptController {
   @Post()
   create(@Body() createAigptDto: CreateAigptDto) {
     return this.aigptService.create(createAigptDto);
+  }
+
+  @Post('validateEmail')
+  validateEmail(@Body() mail: MailValidator) {
+    return this.aigptService.validateMail(mail);
   }
 
   @Get()

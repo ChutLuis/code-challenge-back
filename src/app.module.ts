@@ -5,11 +5,13 @@ import { UsersModule } from './users/users.module';
 import { AigptModule } from './aigpt/aigpt.module';
 import { ConfigModule } from '@nestjs/config';
 import { OpenaiModule } from './openai/openai.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { QuotesModule } from './quotes/quotes.module';
 
 @Module({
   imports: [UsersModule, AigptModule,ConfigModule.forRoot({
     isGlobal:true
-  }), OpenaiModule],
+  }), OpenaiModule, PrismaModule, QuotesModule],
   controllers: [AppController],
   providers: [AppService],
 })

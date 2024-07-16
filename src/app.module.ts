@@ -7,12 +7,14 @@ import { ConfigModule } from '@nestjs/config';
 import { OpenaiModule } from './openai/openai.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { QuotesModule } from './quotes/quotes.module';
+import { InventoryService } from './inventory/inventory.service';
+import { InventoryModule } from './inventory/inventory.module';
 
 @Module({
   imports: [UsersModule, AigptModule,ConfigModule.forRoot({
     isGlobal:true
-  }), OpenaiModule, PrismaModule, QuotesModule],
+  }), OpenaiModule, PrismaModule, QuotesModule, InventoryModule],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, InventoryService],
 })
 export class AppModule {}

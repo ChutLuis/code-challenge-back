@@ -14,22 +14,61 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  email    String  @unique
-  password String
-  name     String?
-  createdAt        DateTime           @default(now())
-  deletedAt        DateTime?
-  updatedAt        DateTime           @default(now())
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  name      String?
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+  updatedAt DateTime  @default(now())
 }
 
 model RFQMail {
-  id       String @id @default(uuid())
-  from     String
-  to       String
-  subject  String
-  mailBody String
-  createdAt        DateTime           @default(now())
-  deletedAt        DateTime?
-  updatedAt        DateTime           @default(now())
+  id        String    @id @default(uuid())
+  from      String
+  to        String
+  subject   String
+  mailBody  String
+  createdAt DateTime  @default(now())
+  deletedAt DateTime?
+  updatedAt DateTime  @default(now())
+}
+
+model Product {
+  id           Int           @id @default(autoincrement())
+  name         String
+  thickness    String
+  dimensions   String
+  stock        Int
+  pricePerUnit Float
+  OrderDetail  OrderDetail[]
+}
+
+model ProcessingService {
+  id           Int    @id @default(autoincrement())
+  name         String
+  pricePerUnit Float
+}
+
+model OrderDetail {
+  id                 Int     @id @default(autoincrement())
+  productId          Int
+  quantity           Int
+  customDimensions   String?
+  processingServices String?
+  totalPrice         Float
+  product            Product @relation(fields: [productId], references: [id])
+  Order              Order?  @relation(fields: [orderId], references: [id])
+  orderId            Int?
+}
+
+model Order {
+  id                   Int           @id @default(autoincrement())
+  customerName         String
+  customerEmail        String
+  dueDate              DateTime
+  shippingAddress      String
+  shippingRestrictions String?
+  orderDetails         OrderDetail[]
+  createdAt            DateTime      @default(now())
 }

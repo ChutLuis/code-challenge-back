@@ -41,7 +41,7 @@ export class OpenaiService implements OnModuleInit {
       "email": "john.doe@xyzmanufacturing.com"
     }
   },
-  "deadline": "July 10th, 2024",
+  "deadline": "10-07-2024",
   "items": [
     {
       "type": "Aluminum Sheet 6061-T6",

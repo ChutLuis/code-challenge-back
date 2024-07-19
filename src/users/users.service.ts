@@ -50,7 +50,7 @@ export class UsersService {
     return { userId: user.id, jwt: token };
   }
 
-  async signUp(data: Prisma.UserCreateInput) {
+  async signUp(data: CreateUserDto) {
     const hash = await argon.hash(data.password);
     data.password = hash;
     try {

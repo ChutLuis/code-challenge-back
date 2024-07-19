@@ -12,4 +12,9 @@ export class UsersController {
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.signUp(createUserDto);
   }
+
+  @Get('login/:user/:password')
+  login(@Param('user') user:string, @Param('password') password:string){
+    return this.usersService.logIn({email:user,password})
+  }
 }

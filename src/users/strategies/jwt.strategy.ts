@@ -8,12 +8,11 @@ import {
   import { JwtPayload } from '../interfaces/jwt-payload.interface';
   import { UsersService } from '../users.service';
   @Injectable()
-  export class JwtStrategy extends PassportStrategy(Strategy) {
+  export class JwtStrategy extends PassportStrategy(Strategy,'jwt') {
     constructor(
       ConfigService: ConfigService,
       private readonly authService: UsersService,
     ) {
-      console.log(ConfigService.get('JWT_SECRET'))
       super({
         secretOrKey: ConfigService.get('JWT_SECRET'),
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

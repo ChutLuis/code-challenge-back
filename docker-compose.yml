@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      DATABASE_URL: postgres://postgres:postgrespw@database-1.c01xvtd1qto0.us-east-1.rds.amazonaws.com:5432/postgres?schema=public
+    command: sh -c "npx prisma migrate deploy && node dist/main"

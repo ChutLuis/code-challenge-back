@@ -10,6 +10,12 @@ COPY package.json yarn.lock ./
 # Install app dependencies
 RUN yarn install --frozen-lockfile
 
+# Copy Prisma schema
+COPY prisma ./prisma/
+
+# Generate Prisma client
+RUN yarn prisma generate
+
 # Bundle app source
 COPY . .
 
@@ -20,4 +26,4 @@ RUN yarn run build
 EXPOSE 3000
 
 # Start the server using the production build
-CMD ["sh", "-c", "npx prisma migrate deploy && node dist/main"]
+CMD ["sh", "-c", "yarn prisma migrate deploy && node dist/main"]

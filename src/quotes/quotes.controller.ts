@@ -13,13 +13,9 @@ export class QuotesController {
     return this.quotesService.listRFQs();
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('getById/:id')
   getById(@Param('id') id: string) {
     return this.quotesService.getRFQByID(id);
-  }
-
-  @Post('sendMail/:id')
-  create(@Body() sendQuoteDTO: CreateRFQDto, @Param('id') id: string) {
-    return "POGGG"
   }
 }
